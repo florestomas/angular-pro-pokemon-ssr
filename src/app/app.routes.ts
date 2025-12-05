@@ -13,17 +13,20 @@ export const routes: Routes = [
     path: 'pricing',
     loadComponent: () => import('./pages/pricing/pricing-page'),
   },
-
+  {
+    path: 'pokemons',
+    loadComponent: () => import('./pages/pokemons/pokemons-page'),
+  },
   {
     path: '**',
     redirectTo: () => {
       return 'about';
     },
   },
-  {
+  /*   {
     path: '/',
     redirectTo: () => {
       return 'about';
     },
-  },
+  }, */
 ];
