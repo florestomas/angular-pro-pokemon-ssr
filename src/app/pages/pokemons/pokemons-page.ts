@@ -1,8 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { PokemonList } from '../../pokemons/components/pokemon-list/pokemon-list';
+import { PokemonListSkeleton } from './ui/pokemon-list-skeleton/pokemon-list-skeleton';
 
 @Component({
   selector: 'pokemons-page',
-  imports: [],
+  imports: [PokemonListSkeleton, PokemonList],
   templateUrl: './pokemons-page.html',
 })
-export default class PokemonsPage {}
+export default class PokemonsPage implements OnInit {
+  public isLoading = signal(true);
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.isLoading.set(false);
+    }, 1500);
+  }
+}
