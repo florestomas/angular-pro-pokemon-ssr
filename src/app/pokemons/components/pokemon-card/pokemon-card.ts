@@ -18,7 +18,7 @@ export class PokemonCard {
       }.png`
   );
 
-  logEffect = effect(() => {
+  /*   logEffect = effect(() => {
     console.log('PokemonCard: ', this.pokemon());
-  });
+  }); */
 }
