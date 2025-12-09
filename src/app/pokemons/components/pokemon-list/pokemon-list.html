@@ -2,8 +2,8 @@
   <!-- 12 -->
 
   <!-- Pokemon Cards -->
-  @for ( pokemon of '123456789012'.split(''); track $index) {
-  <pokemon-card></pokemon-card>
+  @for ( pokemon of pokemons(); track pokemon.id) {
+  <pokemon-card [pokemon]="pokemon"></pokemon-card>
   }
 
   <!-- TODO Si no hay -->

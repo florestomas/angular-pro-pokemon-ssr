@@ -3,8 +3,9 @@
 
 <hr class="my-2" />
 
-@if ( !isLoading() ) {
-<pokemon-list></pokemon-list>
+@if ( isLoading() ) {
+<pokemon-list [pokemons]="pokemons()"></pokemon-list>
+<!-- aca mandamos el VALOR de pokemons, es una promesa -->
 } @else {
 <pokemon-list-skeleton></pokemon-list-skeleton>
 }
@@ -14,5 +15,5 @@
 
 <div class="flex justify-between">
   <button class="mt-2">Anteriores</button>
-  <button class="'mt-2">Siguientes</button>
+  <button class="mt-2">Siguientes</button>
 </div>
