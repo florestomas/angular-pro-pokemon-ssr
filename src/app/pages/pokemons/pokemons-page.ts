@@ -6,8 +6,9 @@ import { PokemonList } from '../../pokemons/components/pokemon-list/pokemon-list
 import { PokemonListSkeleton } from './ui/pokemon-list-skeleton/pokemon-list-skeleton';
 import { Pokemons } from '../../pokemons/services/pokemons';
 import { SimplePokemon } from '../../pokemons/interfaces';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, tap } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'pokemons-page',
@@ -20,6 +21,8 @@ export default class PokemonsPage implements OnInit /* , OnDestroy */ {
   private pokemonsService = inject(Pokemons);
   public pokemons = signal<SimplePokemon[]>([]);
   private route = inject(ActivatedRoute); // Query Parameters
+  private router = inject(Router);
+  private title = inject(Title);
 
   public currentPage = toSignal<number>(
     this.route.queryParamMap.pipe(
@@ -34,10 +37,16 @@ export default class PokemonsPage implements OnInit /* , OnDestroy */ {
   public loadPokemons(page = 0) {
     const pageToLoad = this.currentPage()! + page;
 
-    this.pokemonsService.loadpage(pageToLoad).subscribe((pokemons) => {
-      //console.log('On Init');
-      this.pokemons.set(pokemons);
-    });
+    this.pokemonsService
+      .loadpage(pageToLoad)
+      .pipe(
+        tap(() => this.router.navigate([], { queryParams: { page: pageToLoad } })),
+        tap(() => this.title.setTitle(`Pokemons SSR - Page ${pageToLoad}`))
+      )
+      .subscribe((pokemons) => {
+        //console.log('On Init');
+        this.pokemons.set(pokemons);
+      });
   }
   /*   private appRef = inject(ApplicationRef);
 
