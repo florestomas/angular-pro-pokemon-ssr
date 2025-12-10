@@ -31,7 +31,10 @@ export default class PokemonPage implements OnInit {
 
           this.title.setTitle(pageTitle);
 
-          this.meta.updateTag({ name: 'descripcion', content: pageDescription });
+          this.meta.updateTag({
+            name: 'descripcion',
+            content: 'TE AMO MELANIEEE CON TTODO MI HEART',
+          });
           this.meta.updateTag({ name: 'og:title', content: pageTitle });
           this.meta.updateTag({ name: 'og:description', content: pageDescription });
           this.meta.updateTag({
